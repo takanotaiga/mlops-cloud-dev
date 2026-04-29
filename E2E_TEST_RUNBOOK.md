@@ -128,7 +128,7 @@ docker compose -f e2e/compose.phase1.yml down -v
 
 直近の実行結果:
 
-- `7 passed`
+- `8 passed`
 - `3 skipped`
 
 ## 6. Phase 2: Backend Integration
@@ -229,7 +229,7 @@ docker compose -f e2e/compose.phase3.yml down -v
 - `hm-backend`
 - SurrealDB
 - MinIO
-- 実 `samurai-ulr` pipeline
+- 実 `samurai-ulr` pipeline。`PHASE4_MODEL=t260-ulr` で T260-ULR pipeline に切り替え可能。
 
 実行頻度:
 
@@ -250,12 +250,12 @@ docker compose -f e2e/compose.phase4.yml down -v
 - `test-video.mp4` を MinIO に seed
 - `file` レコードを SurrealDB に seed
 - `annotation.category = 'sam2_key_bbox'` の bbox seed を作成
-- `inference_job.model = 'samurai-ulr'` の job を作成
+- `inference_job.model = 'samurai-ulr'` または `PHASE4_MODEL` で指定した model の job を作成
 - `mlx-backend` が以下を完走すること
 - SAM2 tracking
-- RT-DETR training
-- TensorRT export
-- RT-DETR inference
+- DETR training
+- model export / export skip
+- DETR inference
 - result upload
 - `inference_job.status === Completed`
 - `progress.steps` が主要 step で `completed`
