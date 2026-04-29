@@ -128,7 +128,7 @@ docker compose -f e2e/compose.phase1.yml down -v
 
 直近の実行結果:
 
-- `6 passed`
+- `7 passed`
 - `3 skipped`
 
 ## 6. Phase 2: Backend Integration
