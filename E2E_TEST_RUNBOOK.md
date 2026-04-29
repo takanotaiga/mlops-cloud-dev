@@ -164,6 +164,8 @@ docker compose -f e2e/compose.phase2.yml down -v
 - 動画なし dataset の拒否
 - 複数動画 dataset の拒否
 - 単一動画 dataset の受理
+- hardware metric のCPU/GPU record shape
+- mocked NVML GPU metrics の収集
 
 実装ファイル:
 
@@ -172,10 +174,11 @@ docker compose -f e2e/compose.phase2.yml down -v
 - `e2e/phase2/test_query_helpers.py`
 - `e2e/phase2/test_cleaner.py`
 - `e2e/phase2/test_inference_invalid_jobs.py`
+- `e2e/phase2/test_hardware_metrics.py`
 
 直近の実行結果:
 
-- `15 passed`
+- `18 passed`
 - skip なし
 
 ## 7. Phase 3: System E2E
@@ -204,6 +207,7 @@ docker compose -f e2e/compose.phase3.yml down -v
 - `/` が HTTP 200
 - `/dataset` が HTTP 200
 - `/inference` が HTTP 200
+- `hm-backend` が `hardware_metric.system.cpu_percent` と memory 情報を記録すること
 
 実装ファイル:
 
@@ -211,7 +215,7 @@ docker compose -f e2e/compose.phase3.yml down -v
 
 直近の実行結果:
 
-- `1 passed`
+- `2 passed in 668ms`
 - skip なし
 
 ## 8. Phase 4: GPU E2E
@@ -222,6 +226,7 @@ docker compose -f e2e/compose.phase3.yml down -v
 - `mlx-backend`
 - `cv-backend`
 - `cloud-ui`
+- `hm-backend`
 - SurrealDB
 - MinIO
 - 実 `samurai-ulr` pipeline
@@ -261,11 +266,14 @@ docker compose -f e2e/compose.phase4.yml down -v
 - `hls_playlist` / `hls_segment` が登録されること
 - HLS object が S3 に存在すること
 - UI `/api/status` / `/inference/opened-job` / `/inference/opened-job/analysis` が HTTP 200
+- `hardware_metric.system.cpu_percent` が記録されること
+- `hardware_metric.gpus[]` にGPU名とVRAM容量が記録されること
 
 実装ファイル:
 
 - `e2e/phase4/conftest.py`
 - `e2e/phase4/test_gpu_samurai_pipeline.py`
+- `e2e/phase4/test_hardware_metrics_gpu.py`
 
 オプション:
 
@@ -281,7 +289,7 @@ PHASE4_REQUIRE_SCHEMA_JSON=1 docker compose -f e2e/compose.phase4.yml up --build
 
 直近の実行結果:
 
-- `1 passed in 150.40s`
+- `2 passed in 152.41s`
 - skip なし
 
 ## 9. Fixture
