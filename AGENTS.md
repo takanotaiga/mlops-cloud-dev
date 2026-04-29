@@ -42,7 +42,7 @@
 - HLS 生成後に `video_manager.py` が元 `file.key` を再パック MP4 に差し替える設計があります。元ファイル保持や監査に関わる変更では副作用を確認してください。
 - Cleaner は `dead=true` や orphan record を非同期削除します。UI の削除操作は多くの場合ソフト削除です。
 - `/api/db/query` は raw SQL プロキシとして扱わず、allowlist operation と入力検証を前提にしてください。新規外部公開機能では専用 API route を優先してください。
-- `terminal-manager` はホスト SSH へ接続できます。本番向けの変更では無効化、閉域化、認証、監査を意識してください。
+- Webターミナル機能は削除済みです。ホストSSHやシェル操作をUIから再導入しないでください。
 
 ## よく使うコマンド
 
@@ -104,7 +104,7 @@ docker compose -f e2e/compose.phase3.yml up --build --abort-on-container-exit --
 - Backend の共通処理、query helper、Cleaner、inference 入力制約を変える場合は Phase 2 E2E を優先してください。
 - UI と DB/S3 の連携を変える場合は Phase 1 または Phase 3 E2E を実行してください。
 - 実推論、SAMURAI、RT-DETR、HLS 結果確認に関わる変更は Phase 4 が最も近い検証です。ただし GPU 環境前提のため、実行できない場合はその理由を明記してください。
-- 2026-04-29 時点の Phase 1 期待値は `6 passed, 3 skipped` です。skip は未確定仕様の `test.fixme` です。
+- 2026-04-29 時点の Phase 1 期待値は `7 passed, 3 skipped` です。skip は未確定仕様の `test.fixme` です。
 
 ## Git / PR 運用
 
