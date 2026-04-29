@@ -108,6 +108,8 @@ docker compose -f e2e/compose.phase1.yml down -v
 - dataset detail / object detail の画像プレビューが表示されること
 - soft delete で `file.dead === true` になること
 - inference job 作成で `inference_job.status === ProcessWaiting` になること
+- browser から `/api/db/query` で任意 SQL を実行できないこと
+- `/api/db/query` が allowlist operation と入力検証で動くこと
 
 実装ファイル:
 
@@ -123,12 +125,11 @@ docker compose -f e2e/compose.phase1.yml down -v
 | inference 複数 dataset 制約 | UI 側の制約実装がまだ固定されていないため |
 | inference 動画数制約 | UI と backend の仕様統一待ち |
 | training disabled / preview | Training worker 接続仕様が未確定のため |
-| SQL proxy security | 専用 API / 認可仕様の実装待ち |
 
 直近の実行結果:
 
-- `4 passed`
-- `4 skipped`
+- `6 passed`
+- `3 skipped`
 
 ## 6. Phase 2: Backend Integration
 
