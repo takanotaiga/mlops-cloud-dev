@@ -34,8 +34,8 @@
 ## 実装時の注意
 
 - `Faild` と `StopInterrept` は既存状態値として使われています。綴りだけを理由に一括変更しないでください。
-- 推論 backend は現状、`taskType=one-shot-object-detection`, `modelSource=internet`, `model=samurai-ulr`、かつ単一データセット・単一動画を前提にします。
-- 推論作成 UI では backend を `TensorRT FP16`, `PyTorch FP16`, `PyTorch FP32` から選べます。互換性のため既定値は TensorRT FP16 です。
+- 推論 backend は現状、`taskType=one-shot-object-detection`, `modelSource=internet`, `model=samurai-ulr` または `model=t260-ulr`、かつ単一データセット・単一動画を前提にします。
+- 推論作成 UI では backend を `TensorRT FP16`, `PyTorch FP16`, `PyTorch FP32` から選べます。互換性のため `samurai-ulr` の既定値は TensorRT FP16、T260-ULR の既定値は PyTorch FP16 です。
 - RT-DETR 学習 epoch は UI から可変ですが、既定値は 4 です。
 - 推論成果物の動画は mp4 key でも HLS 化済みとして扱います。UI の動画再生は `hls_playlist` と `/api/storage/hls/playlist` を使う前提です。
 - `training_job` は UI 中心の機能で、常駐 training worker は未確認です。Training を実行済み機能として扱う変更は避け、仕様を明示してください。
@@ -104,7 +104,7 @@ docker compose -f e2e/compose.phase3.yml up --build --abort-on-container-exit --
 - Backend の共通処理、query helper、Cleaner、inference 入力制約を変える場合は Phase 2 E2E を優先してください。
 - UI と DB/S3 の連携を変える場合は Phase 1 または Phase 3 E2E を実行してください。
 - 実推論、SAMURAI、RT-DETR、HLS 結果確認に関わる変更は Phase 4 が最も近い検証です。ただし GPU 環境前提のため、実行できない場合はその理由を明記してください。
-- 2026-04-29 時点の Phase 1 期待値は `7 passed, 3 skipped` です。skip は未確定仕様の `test.fixme` です。
+- 2026-04-29 時点の Phase 1 期待値は `8 passed, 3 skipped` です。skip は未確定仕様の `test.fixme` です。
 
 ## Git / PR 運用
 
